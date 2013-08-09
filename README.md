@@ -3,7 +3,7 @@ hack-karma-https
 
 Hacking karma to launch https webserver
 
-* Why?
+## Why?
 As of v9.x, Karma supports running the application under test over https.
 The ```proxyValidateSSL: false``` configuration option allows the browser ssl warning to be ignored when a self signed certificate is used.
 
@@ -13,10 +13,10 @@ because server does not receive the expected cookie.
 
 The code here is a hack/proof-of-concept to see if Karma could be modified to run under https. A proper solution would involve modifying and reading from the config to support this as an option.
 
-* Files Modified
+## Files Modified
 
-	* karma/lib/launcher.js
-	```
-	// var url = 'http://' + hostname + ':' + port + urlRoot;
-	var url = 'https://' + hostname + ':' + port + urlRoot;
-	```
+* karma/lib/launcher.js
+```
+// var url = 'http://' + hostname + ':' + port + urlRoot;
+var url = 'https://' + hostname + ':' + port + urlRoot;
+```
