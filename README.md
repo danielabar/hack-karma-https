@@ -16,7 +16,27 @@ The code here is a hack/proof-of-concept to see if Karma could be modified to ru
 ## Files Modified
 
 * karma/lib/launcher.js
-```
-// var url = 'http://' + hostname + ':' + port + urlRoot;
-var url = 'https://' + hostname + ':' + port + urlRoot;
-```
+
+	```
+	// var url = 'http://' + hostname + ':' + port + urlRoot;
+	var url = 'https://' + hostname + ':' + port + urlRoot;
+	```
+
+* karma/lib/server.js
+Not sure if its really required to modify socket connection, maybe it automatically detects https?
+
+	```
+	// Added to read and resolve cert and key files
+	var fs = require('fs');
+	var path = require('path');
+
+	// Added secure, key, and cert
+	var server = io.listen(webServer, {
+    	secure: true,
+    	key: fs.readFileSync(path.resolve(__dirname, '../../../server/cert/key.pem')),
+    	cert: fs.readFileSync(path.resolve(__dirname, '../../../server/cert/cert.pem')),
+    	logger: logger.create('socket.io', constant.LOG_ERROR),
+    	resource: config.urlRoot + 'socket.io',
+    	transports: config.transports
+  	});
+  	```
